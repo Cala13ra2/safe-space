@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Chat - Talk Freely</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Splash/Intro Screen -->
+        <div id="splashScreen" class="screen active">
+            <div class="splash-container">
+                <div class="splash-content">
+                    <h1>Talk Freely</h1>
+                    <p>Share your thoughts anonymously. Get honest feedback.</p>
+                    <p class="subtitle">No identity. No history. Just real conversation.</p>
+                    <button id="startBtn" class="btn btn-primary">Start Chatting</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Screen -->
+        <div id="chatScreen" class="screen">
+            <div class="chat-container">
+                <!-- Header -->
+                <div class="chat-header">
+                    <div class="header-content">
+                        <h2 id="chatUsername">@Username</h2>
+                        <div id="statusIndicator" class="status waiting">
+                            <span class="dot"></span>
+                            <span id="statusText">Waiting for response...</span>
+                        </div>
+                    </div>
+                    <button id="endChatBtn" class="btn-icon" title="End conversation">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 4L16 16M4 16L16 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Messages -->
+                <div id="messagesContainer" class="messages-container">
+                    <div class="message-group system">
+                        <div class="message-bubble">
+                            <p>Your message will appear here. An admin will respond shortly.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="chat-input-area">
+                    <textarea 
+                        id="messageInput" 
+                        class="message-input" 
+                        placeholder="Type your message..." 
+                        rows="3"
+                    ></textarea>
+                    <button id="sendBtn" class="btn-send">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M2 10L18 2L10 18L8 10H2Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback Screen -->
+        <div id="feedbackScreen" class="screen">
+            <div class="feedback-container">
+                <div class="feedback-content">
+                    <h2>How was your conversation?</h2>
+                    <p>Your feedback helps us improve the experience for everyone.</p>
+                    
+                    <!-- Rating -->
+                    <div class="rating-section">
+                        <p>Rate this conversation</p>
+                        <div class="rating-stars">
+                            <button class="star" data-rating="1">★</button>
+                            <button class="star" data-rating="2">★</button>
+                            <button class="star" data-rating="3">★</button>
+                            <button class="star" data-rating="4">★</button>
+                            <button class="star" data-rating="5">★</button>
+                        </div>
+                    </div>
+
+                    <!-- Comment -->
+                    <div class="comment-section">
+                        <label for="feedbackComment">Leave a comment (optional)</label>
+                        <textarea 
+                            id="feedbackComment" 
+                            class="feedback-input" 
+                            placeholder="What could we do better? Keep it brief..."
+                            rows="4"
+                        ></textarea>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="feedback-actions">
+                        <button id="submitFeedbackBtn" class="btn btn-primary">Submit Feedback</button>
+                        <button id="skipFeedbackBtn" class="btn btn-secondary">Skip</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Modal -->
+        <div id="reportModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Report Message</h3>
+                    <button class="btn-close" id="closeReportBtn">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>Why are you reporting this message?</p>
+                    <div class="report-options">
+                        <label class="report-option">
+                            <input type="radio" name="report-reason" value="offensive">
+                            <span>Offensive or abusive</span>
+                        </label>
+                        <label class="report-option">
+                            <input type="radio" name="report-reason" value="inappropriate">
+                            <span>Inappropriate content</span>
+                        </label>
+                        <label class="report-option">
+                            <input type="radio" name="report-reason" value="spam">
+                            <span>Spam or scam</span>
+                        </label>
+                        <label class="report-option">
+                            <input type="radio" name="report-reason" value="other">
+                            <span>Other</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelReportBtn" class="btn btn-secondary">Cancel</button>
+                    <button id="confirmReportBtn" class="btn btn-danger">Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="client.js"></script>
+</body>
+</html>
