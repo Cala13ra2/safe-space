@@ -3,143 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anonymous Chat - Talk Freely</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Anonymous Chat - Select Mode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f26 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #e0e6ed;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #4ade80;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #8b92a1;
+            margin-bottom: 40px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn {
+            padding: 20px;
+            border: 2px solid #2a3038;
+            border-radius: 8px;
+            background: #1a1f26;
+            color: #e0e6ed;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn:hover {
+            border-color: #4ade80;
+            background: #0f1419;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(74, 222, 128, 0.15);
+            color: #4ade80;
+        }
+
+        .btn.user {
+            grid-column: 1;
+        }
+
+        .btn.admin {
+            grid-column: 2;
+        }
+
+        @media (max-width: 600px) {
+            .btn.user,
+            .btn.admin {
+                grid-column: 1;
+            }
+        }
+
+        .btn-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #8b92a1;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Splash/Intro Screen -->
-        <div id="splashScreen" class="screen active">
-            <div class="splash-container">
-                <div class="splash-content">
-                    <h1>Talk Freely</h1>
-                    <p>Share your thoughts anonymously. Get honest feedback.</p>
-                    <p class="subtitle">No identity. No history. Just real conversation.</p>
-                    <button id="startBtn" class="btn btn-primary">Start Chatting</button>
-                </div>
-            </div>
+    <div class="container">
+        <h1>Talk Freely</h1>
+        <p>Anonymous conversations with instant feedback</p>
+
+        <div class="buttons">
+            <a href="public/index.html" class="btn user">
+                <span class="btn-icon">💬</span>
+                User Chat
+            </a>
+            <a href="public/admin.html" class="btn admin">
+                <span class="btn-icon">🔐</span>
+                Admin Panel
+            </a>
         </div>
 
-        <!-- Chat Screen -->
-        <div id="chatScreen" class="screen">
-            <div class="chat-container">
-                <!-- Header -->
-                <div class="chat-header">
-                    <div class="header-content">
-                        <h2 id="chatUsername">@Username</h2>
-                        <div id="statusIndicator" class="status waiting">
-                            <span class="dot"></span>
-                            <span id="statusText">Waiting for response...</span>
-                        </div>
-                    </div>
-                    <button id="endChatBtn" class="btn-icon" title="End conversation">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M4 4L16 16M4 16L16 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Messages -->
-                <div id="messagesContainer" class="messages-container">
-                    <div class="message-group system">
-                        <div class="message-bubble">
-                            <p>Your message will appear here. An admin will respond shortly.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Input Area -->
-                <div class="chat-input-area">
-                    <textarea 
-                        id="messageInput" 
-                        class="message-input" 
-                        placeholder="Type your message..." 
-                        rows="3"
-                    ></textarea>
-                    <button id="sendBtn" class="btn-send">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M2 10L18 2L10 18L8 10H2Z" fill="currentColor"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feedback Screen -->
-        <div id="feedbackScreen" class="screen">
-            <div class="feedback-container">
-                <div class="feedback-content">
-                    <h2>How was your conversation?</h2>
-                    <p>Your feedback helps us improve the experience for everyone.</p>
-                    
-                    <!-- Rating -->
-                    <div class="rating-section">
-                        <p>Rate this conversation</p>
-                        <div class="rating-stars">
-                            <button class="star" data-rating="1">★</button>
-                            <button class="star" data-rating="2">★</button>
-                            <button class="star" data-rating="3">★</button>
-                            <button class="star" data-rating="4">★</button>
-                            <button class="star" data-rating="5">★</button>
-                        </div>
-                    </div>
-
-                    <!-- Comment -->
-                    <div class="comment-section">
-                        <label for="feedbackComment">Leave a comment (optional)</label>
-                        <textarea 
-                            id="feedbackComment" 
-                            class="feedback-input" 
-                            placeholder="What could we do better? Keep it brief..."
-                            rows="4"
-                        ></textarea>
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="feedback-actions">
-                        <button id="submitFeedbackBtn" class="btn btn-primary">Submit Feedback</button>
-                        <button id="skipFeedbackBtn" class="btn btn-secondary">Skip</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Report Modal -->
-        <div id="reportModal" class="modal hidden">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Report Message</h3>
-                    <button class="btn-close" id="closeReportBtn">×</button>
-                </div>
-                <div class="modal-body">
-                    <p>Why are you reporting this message?</p>
-                    <div class="report-options">
-                        <label class="report-option">
-                            <input type="radio" name="report-reason" value="offensive">
-                            <span>Offensive or abusive</span>
-                        </label>
-                        <label class="report-option">
-                            <input type="radio" name="report-reason" value="inappropriate">
-                            <span>Inappropriate content</span>
-                        </label>
-                        <label class="report-option">
-                            <input type="radio" name="report-reason" value="spam">
-                            <span>Spam or scam</span>
-                        </label>
-                        <label class="report-option">
-                            <input type="radio" name="report-reason" value="other">
-                            <span>Other</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="cancelReportBtn" class="btn btn-secondary">Cancel</button>
-                    <button id="confirmReportBtn" class="btn btn-danger">Report</button>
-                </div>
-            </div>
+        <div class="subtitle">
+            <p>👤 <strong>User:</strong> Start an anonymous chat</p>
+            <p>🔧 <strong>Admin:</strong> Manage conversations & respond</p>
+            <p style="margin-top: 20px; font-size: 11px;">No backend required • All data local • Open source</p>
         </div>
     </div>
-
-    <script src="client.js"></script>
 </body>
 </html>
