@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Anonymous Chat</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         .admin-container {
             display: grid;
@@ -316,10 +316,121 @@
                 gap: 15px;
             }
         }
+        /* Password Protection Styles */
+        .login-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f26 100%);
+        }
+
+        .login-container {
+            background: #1a1f26;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #2a3038;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-container h1 {
+            color: #4ade80;
+            margin-bottom: 10px;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .login-container p {
+            color: #8b92a1;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .login-input {
+            background: #0f1419;
+            border: 1px solid #2a3038;
+            color: #e0e6ed;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: #4ade80;
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.1);
+        }
+
+        .login-btn {
+            background: #4ade80;
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .login-btn:hover {
+            background: #22c55e;
+            transform: translateY(-1px);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .login-error {
+            color: #ef4444;
+            text-align: center;
+            font-size: 13px;
+            display: none;
+        }
+
+        .admin-container.hidden {
+            display: none;
+        }
+
+        .login-screen.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div id="adminApp" class="admin-container">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <h1>🔐 Admin Access</h1>
+            <p>Enter password to access the admin panel</p>
+            <form class="login-form" id="loginForm">
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    class="login-input" 
+                    placeholder="Enter password" 
+                    required
+                    autofocus
+                />
+                <button type="submit" class="login-btn">Login</button>
+                <div class="login-error" id="loginError">Incorrect password</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminApp" class="admin-container hidden">
         <!-- Sidebar -->
         <div class="admin-sidebar">
             <h2 style="color: #4ade80; margin-bottom: 20px;">Admin Panel</h2>

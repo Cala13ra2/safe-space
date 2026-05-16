@@ -1,8 +1,51 @@
 // Admin Panel - LocalStorage based
+const ADMIN_PASSWORD = 'Chika2001?'; // Change this to your desired password
+
 const adminState = {
   selectedConversationId: null,
   conversations: [],
 };
+
+// Password Protection
+function initializePasswordProtection() {
+  const loginScreen = document.getElementById('loginScreen');
+  const adminApp = document.getElementById('adminApp');
+  const loginForm = document.getElementById('loginForm');
+  const passwordInput = document.getElementById('passwordInput');
+  const loginError = document.getElementById('loginError');
+
+  // Check if already logged in (session-based)
+  if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+    loginScreen.classList.add('hidden');
+    adminApp.classList.remove('hidden');
+    return;
+  }
+
+  // Show login screen
+  loginScreen.classList.remove('hidden');
+  adminApp.classList.add('hidden');
+
+  // Handle login
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const password = passwordInput.value;
+
+    if (password === ADMIN_PASSWORD) {
+      sessionStorage.setItem('adminLoggedIn', 'true');
+      loginError.style.display = 'none';
+      loginScreen.classList.add('hidden');
+      adminApp.classList.remove('hidden');
+      passwordInput.value = '';
+    } else {
+      loginError.style.display = 'block';
+      passwordInput.value = '';
+      passwordInput.focus();
+    }
+  });
+}
+
+// Initialize password protection on page load
+document.addEventListener('DOMContentLoaded', initializePasswordProtection);
 
 // DOM Elements
 const activeCount = document.getElementById('activeCount');
@@ -29,7 +72,8 @@ adminReplyInput.addEventListener('keydown', (e) => {
 
 logoutBtn.addEventListener('click', () => {
   if (confirm('Logout?')) {
-    window.location.href = '/';
+    sessionStorage.removeItem('adminLoggedIn');
+    window.location.reload();
   }
 });
 
